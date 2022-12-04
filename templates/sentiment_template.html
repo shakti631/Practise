@@ -15,6 +15,13 @@
                 <input type="submit">
             </form>
         </div>
+        {% if params.msg %}
+        <div style="margin-top: 20vh" class="text-entry">
+            You said:
+            <br>
+            {{ params.msg }}
+        </div>
+        {% endif %}
     </div>
 </body>
 </html>
