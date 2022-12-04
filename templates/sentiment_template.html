@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='./styles/style.css') }}">
+    <meta charset="UTF-8">
+    <title>Sentiment Today</title>
+</head>
+<body>
+    <!-- I use figma to create classes -->
+    <div class="background-rect">
+        <div class="text-entry">
+            <div class="prompt-text">How are you feeling today?</div>
+            <form method="POST">
+                <input style="position: relative; min-width: 20vw; min-height: 10vh; left: 0vw"  name="text">
+                <input type="submit">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

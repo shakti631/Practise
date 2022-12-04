@@ -1,8 +1,9 @@
 import json
 import mysql.connector
-from flask import Flask,request,make_response,request
+from flask import Flask, request, make_response, request, render_template, blueprints
 from datetime import datetime,timedelta,date,time
 import jwt
+from fun_blueprint.fun_blueprint import fun_blueprint
 
 con = mysql.connector.connect(host="localhost",user="root",password="Shakti123",database="flask_tutorial",auth_plugin="mysql_native_password")
 cur = con.cursor(dictionary=True)
@@ -61,6 +62,8 @@ def decode_jwt(endpoint):
 
 app = Flask(__name__)
 
+app.register_blueprint(fun_blueprint, url_prefix="/fun_blueprint")
+
 @app.route("/get")
 @decode_jwt("/get")
 def read_data():
@@ -84,6 +87,15 @@ def patch_data(z):
 
 @app.route("/login", methods=["POST"])
 def JWT_data():
+    # here: login, should have both GET and POST request
     return encode_jwt(request.form)
 
-app.run(debug=True)
+
+# todo change here: protection/guard block: if name == __main__: only call app.run() if this is main entry point for app
+#  this is a bit of a complicated subject, but essentially eventually you're going to make this a package, not just a script
+#  a package might be imported by another module later one. If app.run() were not protected by name == main, then when this
+#  script were imported it would run app.run again, which would break the program
+#  __name__ is a built in special variable; it's value will only be __main__ if this is the main entry point of the app
+if __name__ == "__main__":
+    app.config['TEMPLATES_AUTO_RELOAD'] = True
+    app.run(debug=True)
