@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request
+from data_science.sentiment.sentiment_analysis import sentiment_analysis
 
 fun_blueprint = Blueprint('fun_blueprint', __name__, template_folder="templates")
 
@@ -9,4 +10,5 @@ def sentiment_text():
         return render_template("sentiment_template.html", params={"msg": None})
     else:
         msg = request.form.get("text")
-        return render_template("sentiment_template.html", params={"msg": msg})
+        analysis = sentiment_analysis(msg)
+        return render_template("sentiment_template.html", params={"msg": msg, "analysis": analysis})
