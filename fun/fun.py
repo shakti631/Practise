@@ -4,7 +4,7 @@ from flask import Blueprint,Flask,request,make_response,render_template
 from datetime import datetime,timedelta,date,time
 import jwt
 
-app = Flask(__name__,template_folder='/templates')
+app = Flask(__name__,template_folder='../templates')
 
 def xyz(a):
     if request.method == 'POST':
@@ -24,3 +24,4 @@ def abc():
     return xyz(request.form)
 
 app.run(debug=True)
+
